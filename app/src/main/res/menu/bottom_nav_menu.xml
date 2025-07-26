@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--    android:icon="@drawable/ic_short_play"-->
+    <item
+        android:id="@+id/nav_short_play"
+        android:title="短剧" />
+    <!--    android:icon="@drawable/ic_quiz"-->
+    <item
+        android:id="@+id/nav_quiz"
+        android:title="答题" />
+    <!--    android:icon="@drawable/ic_welfare"-->
+    <item
+        android:id="@+id/nav_welfare"
+        android:title="福利" />
+    <!--    android:icon="@drawable/ic_profile"-->
+    <item
+        android:id="@+id/nav_profile"
+        android:title="我的" />
+</menu>

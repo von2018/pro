@@ -1,0 +1,104 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.firm.pro'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.firm.pro"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+        buildConfigField "String", "BASE_URL", "\"https://v3.alapi.cn\""
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // 指定支持的 ABI（仅保留需要的，减小体积）
+        ndk {
+            abiFilters 'arm64-v8a', 'armeabi-v7a' // 主流设备：64位ARM + 32位ARM
+            // 严禁添加：'x86', 'x86_64',禁止模拟器或x86设备
+        }
+    }
+
+    buildTypes {
+        release {
+            buildConfigField "boolean", "DEBUG_MODE", "false"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField "boolean", "DEBUG_MODE", "true"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+        buildConfig true // 启用 BuildConfig 和 BuildConfigField
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('firmpro.jks')
+            storePassword 'MfSe8P8Zb8ya'
+            keyAlias  'firmpro'
+            keyPassword 'MfSe8P8Zb8ya'
+        }
+        debug {// 开发环境
+            storeFile file('firmpro.jks')
+            storePassword 'MfSe8P8Zb8ya'
+            keyAlias  'firmpro'
+            keyPassword 'MfSe8P8Zb8ya'
+        }
+    }
+
+    // 配置所有构建类型(正式包、调试包)的APK文件名
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            // 获取包名、版本名、版本号和构建类型
+            def versionName = defaultConfig.versionName
+            def buildType = variant.buildType.name // 可能是release/debug
+
+            // 定义文件名格式：包名-版本名(版本号)-构建类型.apk
+            def fileName = "pro-v${versionName}-${buildType}.apk"
+
+            // 设置输出文件名
+            output.outputFileName = fileName
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    // OkHttp
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+    // Gson，用于JSON解析
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+    // taku sdk begin
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    //Support (Necessary)
+//    implementation 'com.android.support:appcompat-v7:28.0.0'
+//    implementation 'com.android.support:localbroadcastmanager:28.0.0'
+//    //Kuaishou
+//    implementation 'com.android.support:design:28.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // taku sdk end
+
+}

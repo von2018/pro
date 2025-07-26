@@ -1,0 +1,20 @@
+{
+  "app_id": "a676bb18ee8888",
+  "app_key": "a11068720df8b7b85b68618f04dd98fe9",
+  "rewarded_video": {
+    "All": "b676bb1d8d989b"
+  },
+  "interstitial": {
+    "All": "b6782488f9e8cc"
+  },
+  "banner": {
+    "All": "b6768b1d8846df"
+  },
+  "splash": {
+    "All": "b67984e8eb82de"
+  },
+  "native-express": {
+    "All": "b6768b180148c1"
+  }
+}
+
